@@ -9,7 +9,7 @@ function Welcome() {
 
     const useStyles = makeStyles(() => ({
         text: {
-            marginTop: '15px',
+            margin: '15px',
         },
 
         linkActive: {
@@ -22,7 +22,7 @@ function Welcome() {
     return (
       <div className="App">
         <Container>
-          <Typography variant="h4">Hello, Guest!</Typography>
+          <Typography variant="h4" className={classes.text}>Hello, Guest!</Typography>
           <Typography className={classes.text}>
             New User? Sign up <NavLink
               className="Nav_Link"

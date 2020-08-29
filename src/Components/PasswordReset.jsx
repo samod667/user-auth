@@ -23,7 +23,7 @@ function emailWasSent() {
 
 function PasswordReset() {
   const [email, setEmail] = useState("");
-  const [emailHasBeenSent, setEmailHasBeenSent] = useState(true);
+  const [emailHasBeenSent, setEmailHasBeenSent] = useState(false);
   const [error, setError] = useState(null);
 
   const sendResetEmail = (e, email) => {
@@ -82,7 +82,7 @@ function PasswordReset() {
               >
                 Send me a reset link
               </Button>
-              <Typography variant="body2">or</Typography>
+              <Typography variant="overline">or</Typography>
               <Typography variant="overline">
                 go back{" "}
                 <NavLink exact to="/" className="Nav_Link">
