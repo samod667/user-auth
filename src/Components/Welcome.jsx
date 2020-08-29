@@ -24,13 +24,10 @@ function Welcome() {
         <Container>
           <Typography variant="h4">Hello, Guest!</Typography>
           <Typography className={classes.text}>
-            New User? Sign up
-            <NavLink
+            New User? Sign up <NavLink
               className="Nav_Link"
               exact
-              to="/signUp"
-              activeStyle={{ color: "white" }}
-            >
+              to="/signup">
               here
             </NavLink>
             .
