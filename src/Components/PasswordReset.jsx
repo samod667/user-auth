@@ -24,11 +24,11 @@ function emailWasSent() {
 function PasswordReset() {
   const [email, setEmail] = useState("");
   const [emailHasBeenSent, setEmailHasBeenSent] = useState(false);
-  const [error, setError] = useState(null);
+  const [emailError, setEmailError] = useState(null);
 
   const sendResetEmail = (e, email) => {
     e.preventDefault();
-    setEmailHasBeenSent(true);
+    validateEmail(email);
   };
 
   const useStyle = makeStyles(() => ({
@@ -51,13 +51,25 @@ function PasswordReset() {
       );
   }
 
+  const validateEmail = (mail) => {
+    const emailRegEx = RegExp(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+    if (!emailRegEx.test(String(mail).toLocaleLowerCase())) {
+      setEmailError(true);
+    } else {
+      setEmailError(false);
+      setEmailHasBeenSent(true)
+    }
+  }
+
   return (
     <div className="App">
       <Container component="main" maxWidth="xs">
         {emailHasBeenSent ? (
           emailWasSent()
         ) : (
-          <form>
+          <form onSubmit={(e) => sendResetEmail(e, email)}>
             <Box display="flex" flexDirection="column">
               <Typography variant="h5">Reset Password</Typography>
               <TextField
@@ -70,12 +82,12 @@ function PasswordReset() {
                 name="email"
                 id="email"
                 autoFocus
+                error ={emailError ? true : false}
                 required
               />
 
               <Button
                 type="submit"
-                onClick={(e) => sendResetEmail(e, email)}
                 color="primary"
                 variant="contained"
                 className={classes.button}

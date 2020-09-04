@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { UserContext } from '../Providers/UserProvider'
 import { Container, Typography, Box, makeStyles, Button } from '@material-ui/core'
+import { auth } from '../firebase';
 
 function ProfilePage() {
     const useStyle = makeStyles(() => ({
@@ -20,19 +22,28 @@ function ProfilePage() {
       },
     }));
 
+    const user = useContext(UserContext);
+    const {email, username} = user;
+
     const classes = useStyle()
 
-    const signout = () => {
-
+    //WRITE SIGN OUT METHOD
+    const signout = async () => {
+      try {
+        await auth.signOut();
+      } catch(error) {
+        console.log(error)
+        alert("An error occurred")
+      }
     }
 
     return (
         <div className="App">
             <Container className={classes.container}>
-                <Typography variant="h5">Welcome back, username</Typography>
+                <Typography variant="h5">Welcome back, {username}</Typography>
                 <Box className={classes.box} mt={2}>
-                    <Typography variant="p"> Email: sample@gmail.com</Typography>
-                    <Typography variant="p"> Username: username</Typography>
+                    <Typography variant="h5"> Email: {email}</Typography>
+                    <Typography variant="h5"> Username: {username}</Typography>
                     <Button type="button" onClick={(e) => signout()}>Sign Out</Button>
                 </Box>
             </Container>
